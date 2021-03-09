@@ -13,11 +13,10 @@ MATRICULA=^[0-9]{4}-[A-Z]{3}$
 cant_errores=0
 for arg in $*
 do
- echo $arg | egrep -w $MATRICULA
- error=$(echo $?)
- if [ $error -ne 0 ]
+ echo $arg | egrep -w $MATRICULA 2> /dev/null
+ if [ $? -ne 0 ]
  then
-  echo $arg >> /dev/stderr
+  echo "Error: la matricula $arg no es valida" >> /dev/stderr
   cant_errores=$(($cant_errores+1))
  fi
 done
